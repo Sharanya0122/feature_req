@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { LogIn, AlertCircle } from 'lucide-react';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -19,20 +20,33 @@ const Login = () => {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-      <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
-          Login to FeatureFlow
-        </h2>
-        {error && <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '0.75rem', borderRadius: '6px', marginBottom: '1rem' }}>{error}</div>}
+    <div className="auth-wrapper">
+      <div className="card animate-fade-in" style={{ width: '100%', maxWidth: '420px', padding: '3rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(139, 92, 246, 0.1)', borderRadius: '50%', marginBottom: '1rem', color: 'var(--primary-color)' }}>
+            <LogIn size={32} />
+          </div>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', fontFamily: 'Outfit' }}>
+            Welcome Back
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Login to FeatureFlow to continue</p>
+        </div>
+
+        {error && (
+          <div className="alert-error">
+            <AlertCircle size={18} /> {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">Email Address</label>
             <input
               type="email"
               className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@example.com"
               required
             />
           </div>
@@ -43,15 +57,16 @@ const Login = () => {
               className="form-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem' }}>
-            Login
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.875rem', marginTop: '1rem' }}>
+            Sign In
           </button>
         </form>
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', color: 'var(--text-secondary)' }}>
-          Don't have an account? <Link to="/register">Register</Link>
+        <p style={{ textAlign: 'center', marginTop: '2rem', color: 'var(--text-secondary)' }}>
+          Don't have an account? <Link to="/register" style={{ fontWeight: '600' }}>Register here</Link>
         </p>
       </div>
     </div>

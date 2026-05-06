@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { UserPlus, AlertCircle } from 'lucide-react';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -18,37 +19,48 @@ const Register = () => {
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Registration failed';
       setError(errorMessage);
-      if (err.response?.status === 403) {
-        alert(errorMessage);
-      }
     }
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh' }}>
-      <div className="card" style={{ width: '100%', maxWidth: '400px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
-          Create an Account
-        </h2>
-        {error && <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '0.75rem', borderRadius: '6px', marginBottom: '1rem' }}>{error}</div>}
+    <div className="auth-wrapper">
+      <div className="card animate-fade-in" style={{ width: '100%', maxWidth: '420px', padding: '3rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ display: 'inline-flex', padding: '1rem', background: 'rgba(139, 92, 246, 0.1)', borderRadius: '50%', marginBottom: '1rem', color: 'var(--primary-color)' }}>
+            <UserPlus size={32} />
+          </div>
+          <h2 style={{ fontSize: '1.75rem', fontWeight: '700', fontFamily: 'Outfit' }}>
+            Create an Account
+          </h2>
+          <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem' }}>Join FeatureFlow today</p>
+        </div>
+
+        {error && (
+          <div className="alert-error">
+            <AlertCircle size={18} /> {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label className="form-label">Name</label>
+            <label className="form-label">Full Name</label>
             <input
               type="text"
               className="form-input"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              placeholder="John Doe"
               required
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Email</label>
+            <label className="form-label">Email Address</label>
             <input
               type="email"
               className="form-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="name@example.com"
               required
             />
           </div>
@@ -59,26 +71,29 @@ const Register = () => {
               className="form-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="••••••••"
               required
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Role</label>
-            <select
-              className="form-input"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            >
-              <option value="USER">User</option>
-              <option value="ADMIN">Admin</option>
-            </select>
+            <label className="form-label">Account Role</label>
+            <div style={{ position: 'relative' }}>
+              <select
+                className="form-input"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="USER">Standard User</option>
+                <option value="ADMIN">Administrator</option>
+              </select>
+            </div>
           </div>
-          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.75rem' }}>
-            Register
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', padding: '0.875rem', marginTop: '1rem' }}>
+            Create Account
           </button>
         </form>
-        <p style={{ textAlign: 'center', marginTop: '1.5rem', color: 'var(--text-secondary)' }}>
-          Already have an account? <Link to="/login">Login</Link>
+        <p style={{ textAlign: 'center', marginTop: '2rem', color: 'var(--text-secondary)' }}>
+          Already have an account? <Link to="/login" style={{ fontWeight: '600' }}>Sign In</Link>
         </p>
       </div>
     </div>

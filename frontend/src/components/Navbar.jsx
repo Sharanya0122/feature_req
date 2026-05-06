@@ -15,15 +15,15 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="container">
-        <Link to="/" style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--text-primary)' }}>
+        <Link to="/" className="nav-brand">
           FeatureFlow
         </Link>
         <div className="nav-links">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)' }}>
             <User size={18} />
-            <span>{user?.name} ({user?.role})</span>
+            <span style={{ fontWeight: '500' }}>{user?.name} <span style={{ opacity: 0.7, fontSize: '0.85em' }}>({user?.role})</span></span>
           </div>
-          <button onClick={handleLogout} className="btn btn-danger" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <button onClick={handleLogout} className="btn btn-danger">
             <LogOut size={16} /> Logout
           </button>
         </div>
